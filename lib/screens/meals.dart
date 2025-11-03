@@ -9,31 +9,49 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = ListView.builder(
-      itemCount: meals.length,
-      itemBuilder: (context, index) {
-        var meal = meals[index];
-        return Column(
-          children: [
-            Image.asset(meal.imageUrl),
-            Text(meal.title),
-            Text(meal.complexity.toString()),
-            Text(meal.affordability.toString()),
-          ],
-        );
-      },
+    Widget content = Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Uh oh ... nothing here!',
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Try selecting a different category..',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ],
+      ),
     );
 
-    if (meals.isEmpty) {
-      content = Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Uh oh ... nothing here!'),
-            SizedBox(height: 16),
-            Text('Try selecting a different category..'),
-          ],
-        ),
+    if (meals.isNotEmpty) {
+      content = ListView.builder(
+        itemCount: meals.length,
+        itemBuilder: (context, index) {
+          var meal = meals[index];
+          return Column(
+            children: [
+              Text(
+                meal.title,
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                meal.complexity.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                meal.affordability.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          );
+        },
       );
     }
 
