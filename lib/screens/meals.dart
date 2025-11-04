@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({super.key, required this.title, required this.meals});
@@ -36,20 +37,7 @@ class MealsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           var meal = meals[index];
           return Column(
-            children: [
-              Text(
-                meal.title,
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                meal.complexity.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                meal.affordability.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+            children: [MealItem(meal: meal)],
           );
         },
       );
