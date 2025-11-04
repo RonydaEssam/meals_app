@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal});
 
   final Meal meal;
-  Widget _complexityIcon(Complexity complexity) {
+
+  IconData _complexityIcon(Complexity complexity) {
     return switch (complexity) {
-      Complexity.simple => Icon(
-        Icons.signal_cellular_alt_1_bar_rounded,
-        size: 18,
-        color: Colors.white,
-      ),
-      Complexity.challenging => Icon(
-        Icons.signal_cellular_alt_2_bar_rounded,
-        size: 18,
-        color: Colors.white,
-      ),
-      Complexity.hard => Icon(
-        Icons.signal_cellular_alt_rounded,
-        size: 18,
-        color: Colors.white,
-      ),
+      Complexity.simple => Icons.signal_cellular_alt_1_bar_rounded,
+      Complexity.challenging => Icons.signal_cellular_alt_2_bar_rounded,
+      Complexity.hard => Icons.signal_cellular_alt_rounded,
     };
   }
+
+  final Widget _spacing = const Row(
+    children: [
+      SizedBox(width: 6),
+      Text(
+        '|',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(width: 6),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +77,7 @@ class MealItem extends StatelessWidget {
                       textAlign: TextAlign.center,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -82,47 +87,19 @@ class MealItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.watch_later_outlined,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              '${meal.duration} min',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                        MealItemTrait(
+                          icon: Icons.watch_later_outlined,
+                          label: '${meal.duration} min',
                         ),
-                        SizedBox(width: 6),
-                        Text(
-                          '|',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        _spacing,
+                        MealItemTrait(
+                          icon: _complexityIcon(meal.complexity),
+                          label: meal.complexity.name,
                         ),
-                        SizedBox(width: 6),
-                        Row(
-                          children: [
-                            _complexityIcon(meal.complexity),
-                            SizedBox(width: 3),
-                            Text(
-                              meal.complexity.name,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                        _spacing,
+                        MealItemTrait(
+                          icon: Icons.attach_money,
+                          label: meal.affordability.name,
                         ),
                       ],
                     ),
