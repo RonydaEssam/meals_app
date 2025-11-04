@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
-import 'package:meals_app/screens/meal_details.dart';
 import 'package:meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal, this.onSelectMeal});
+  const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   final Meal meal;
-  final Function? onSelectMeal;
-
-  void _selectMeal(BuildContext context, Meal meal) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MealDetailsScreen(meal: meal),
-      ),
-    );
-  }
+  final Function(BuildContext context, Meal meal) onSelectMeal;
 
   IconData _complexityIcon(Complexity complexity) {
     return switch (complexity) {
@@ -49,7 +40,9 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () => _selectMeal(context, meal),
+        onTap: () {
+          onSelectMeal(context, meal);
+        },
         child: Stack(
           children: [
             FadeInImage(
