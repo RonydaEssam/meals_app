@@ -6,6 +6,25 @@ class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal});
 
   final Meal meal;
+  Widget _complexityIcon(Complexity complexity) {
+    return switch (complexity) {
+      Complexity.simple => Icon(
+        Icons.signal_cellular_alt_1_bar_rounded,
+        size: 18,
+        color: Colors.white,
+      ),
+      Complexity.challenging => Icon(
+        Icons.signal_cellular_alt_2_bar_rounded,
+        size: 18,
+        color: Colors.white,
+      ),
+      Complexity.hard => Icon(
+        Icons.signal_cellular_alt_rounded,
+        size: 18,
+        color: Colors.white,
+      ),
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +61,8 @@ class MealItem extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 44,
+                  vertical: 4,
+                  horizontal: 34,
                 ),
                 child: Column(
                   children: [
@@ -59,7 +78,7 @@ class MealItem extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -70,7 +89,7 @@ class MealItem extends StatelessWidget {
                               size: 18,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 2),
+                            SizedBox(width: 4),
                             Text(
                               '${meal.duration} min',
                               style: TextStyle(
@@ -81,7 +100,7 @@ class MealItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(width: 4),
+                        SizedBox(width: 6),
                         Text(
                           '|',
                           style: TextStyle(
@@ -90,15 +109,11 @@ class MealItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        SizedBox(width: 6),
                         Row(
                           children: [
-                            Icon(
-                              Icons.signal_cellular_alt_rounded,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 2),
+                            _complexityIcon(meal.complexity),
+                            SizedBox(width: 3),
                             Text(
                               meal.complexity.name,
                               style: TextStyle(
