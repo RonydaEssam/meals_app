@@ -16,56 +16,58 @@ class MealDetailsScreen extends StatelessWidget {
             expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Hero(
-                tag: meal.id,
-                child: Stack(
-                  children: [
-                    Image.network(
-                      meal.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 150,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              Colors.black87,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
+              background: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Hero(
+                      tag: meal.id,
+                      child: Image.network(
+                        meal.imageUrl,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Positioned(
-                      bottom: 20,
-                      left: 10,
-                      right: 10,
-                      child: Text(
-                        meal.title,
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.black,
-                              offset: Offset(0, 2),
-                            ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: 150,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black87,
                           ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 10,
+                    right: 10,
+                    child: Text(
+                      meal.title,
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 10.0,
+                            color: Colors.black,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -116,6 +118,7 @@ class MealDetailsScreen extends StatelessWidget {
                               ),
                         ),
                       ),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
