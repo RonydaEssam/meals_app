@@ -46,22 +46,42 @@ class MealDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 20,
-                    left: 10,
-                    right: 10,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black87,
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          stops: [0, 1],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    //bottom: 20,
+                    left: 40,
+                    right: 40,
+                    top: 34,
                     child: Text(
                       meal.title,
                       textAlign: TextAlign.center,
                       softWrap: true,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 28,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         shadows: [
                           Shadow(
                             blurRadius: 10.0,
                             color: Colors.black,
-                            offset: Offset(0, 2),
+                            offset: Offset(0, 1),
                           ),
                         ],
                       ),
