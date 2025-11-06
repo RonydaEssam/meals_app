@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 
-class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen({super.key, required this.meal});
+class MealDetailsScreen extends StatefulWidget {
+  const MealDetailsScreen({
+    super.key,
+    required this.meal,
+    required this.onFavoriteMeal,
+  });
 
   final Meal meal;
+  final Function(Meal meal) onFavoriteMeal;
 
+  @override
+  State<MealDetailsScreen> createState() => _MealDetailsScreenState();
+}
+
+class _MealDetailsScreenState extends State<MealDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(title: Text(meal.title)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            widget.onFavoriteMeal(widget.meal);
+          });
+        },
+        shape: CircleBorder(side: BorderSide(width: 2)),
+        child: Icon(
+          Icons.star_border,
+          size: 32,
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -20,9 +41,9 @@ class MealDetailsScreen extends StatelessWidget {
                 children: [
                   Positioned.fill(
                     child: Hero(
-                      tag: meal.id,
+                      tag: widget.meal.id,
                       child: Image.network(
-                        meal.imageUrl,
+                        widget.meal.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -45,14 +66,13 @@ class MealDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Positioned(
                     bottom: 20,
                     left: 40,
                     right: 40,
                     //top: 34,
                     child: Text(
-                      meal.title,
+                      widget.meal.title,
                       textAlign: TextAlign.center,
                       softWrap: true,
                       style: TextStyle(
@@ -88,15 +108,16 @@ class MealDetailsScreen extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
-                    for (final ingredient in meal.ingredients)
+                    const SizedBox(height: 6),
+                    for (final ingredient in widget.meal.ingredients)
                       Text(
                         ingredient,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 16,
                         ),
                       ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 18),
                     Text(
                       'Steps',
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -104,11 +125,11 @@ class MealDetailsScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    for (final step in meal.steps)
+                    const SizedBox(height: 2),
+                    for (final step in widget.meal.steps)
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 6,
+                          vertical: 4,
                           horizontal: 12,
                         ),
                         child: Text(
@@ -117,6 +138,7 @@ class MealDetailsScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium!
                               .copyWith(
                                 color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 16,
                               ),
                         ),
                       ),
