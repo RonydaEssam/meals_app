@@ -15,6 +15,7 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
   final List<Meal> _favoriteMeals = [];
+  bool isFavorite(meal) => _favoriteMeals.contains(meal);
 
   void _selectPage(int index) {
     setState(() {
@@ -40,6 +41,7 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen(
       onFavoriteMeal: _toggleFavoritesButton,
+      isFavorite: isFavorite,
     );
     var activePageTitle = 'Categories';
 
@@ -47,6 +49,7 @@ class _TabsScreenState extends State<TabsScreen> {
       activePage = MealsScreen(
         meals: _favoriteMeals,
         onFavoriteMeal: _toggleFavoritesButton,
+        isFavorite: isFavorite,
       );
       activePageTitle = 'Your Favorites';
     }

@@ -6,19 +6,23 @@ class MealDetailsScreen extends StatelessWidget {
     super.key,
     required this.meal,
     required this.onFavoriteMeal,
+    required this.isFavorite,
   });
 
   final Meal meal;
   final Function(Meal meal) onFavoriteMeal;
+  final bool Function(Meal meal) isFavorite;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: onFavoriteMeal(meal),
+        onPressed: () {
+          onFavoriteMeal(meal);
+        },
         shape: CircleBorder(side: BorderSide(width: 2)),
         child: Icon(
-          Icons.star_border,
+          isFavorite(meal) ? Icons.star : Icons.star_border,
           size: 32,
         ),
       ),
