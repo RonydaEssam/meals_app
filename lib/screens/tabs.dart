@@ -27,6 +27,7 @@ class _TabsScreenState extends State<TabsScreen> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        duration: Duration(seconds: 3),
         content: Text(message),
       ),
     );
