@@ -100,7 +100,7 @@ class MealDetailsScreen extends StatelessWidget {
                         child: Card(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onPrimary.withValues(alpha: 0.7),
+                          ).colorScheme.onSecondary.withValues(alpha: 0.8),
                           margin: EdgeInsets.symmetric(
                             vertical: 8,
                             horizontal: 4,
@@ -123,7 +123,6 @@ class MealDetailsScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
-
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +192,7 @@ class MealDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Ingredients',
+                        'Ingredients : ',
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -208,7 +207,7 @@ class MealDetailsScreen extends StatelessWidget {
                             horizontal: 12,
                           ),
                           child: Text(
-                            ingredient,
+                            '- $ingredient',
                             style: Theme.of(context).textTheme.bodyMedium!
                                 .copyWith(
                                   color: Theme.of(
@@ -220,7 +219,7 @@ class MealDetailsScreen extends StatelessWidget {
                         ),
                       const SizedBox(height: 18),
                       Text(
-                        'Steps',
+                        'Steps : ',
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
