@@ -91,54 +91,163 @@ class MealDetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 12),
-                    Text(
-                      'Ingredients',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Card(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary.withValues(alpha: 0.7),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 4,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 12,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '   Duration: ${meal.duration} min   ',
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (meal.isGlutenFree)
+                                      Text(
+                                        'Gluten-free ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurface,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    if (meal.isLactoseFree)
+                                      Text(
+                                        '  Lactose-free ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurface,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    if (meal.isVegetarian)
+                                      Text(
+                                        '  Vegetarian ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurface,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    if (meal.isVegan)
+                                      Text(
+                                        '  Vegan',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurface,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 6),
-                    for (final ingredient in meal.ingredients)
+                      const SizedBox(height: 6),
                       Text(
-                        ingredient,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontSize: 16,
+                        'Ingredients',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 6),
+                      for (final ingredient in meal.ingredients)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 2,
+                            horizontal: 12,
+                          ),
+                          child: Text(
+                            ingredient,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                  fontSize: 16,
+                                ),
+                          ),
+                        ),
+                      const SizedBox(height: 18),
+                      Text(
+                        'Steps',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    const SizedBox(height: 18),
-                    Text(
-                      'Steps',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    for (final step in meal.steps)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 12,
+                      const SizedBox(height: 2),
+                      for (int i = 0; i < meal.steps.length; i++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 12,
+                          ),
+                          child: Text(
+                            '${i + 1}. ${meal.steps[i]}',
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                  fontSize: 16,
+                                ),
+                          ),
                         ),
-                        child: Text(
-                          step,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                                fontSize: 16,
-                              ),
-                        ),
-                      ),
-                    const SizedBox(height: 30),
-                  ],
+                      const SizedBox(height: 30),
+                    ],
+                  ),
                 ),
               ),
             ]),
