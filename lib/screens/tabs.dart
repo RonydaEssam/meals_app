@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/Providers/favorites_provider.dart';
 import 'package:meals_app/Providers/meals_provider.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
@@ -25,40 +26,12 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
-  final List<Meal> _favoriteMeals = [];
-  bool isFavorite(meal) => _favoriteMeals.contains(meal);
   Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
-  }
-
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 3),
-        content: Text(message),
-      ),
-    );
-  }
-
-  void _toggleFavoritesButton(Meal meal) {
-    var isExisting = _favoriteMeals.contains(meal);
-
-    if (isExisting) {
-      setState(() {
-        _favoriteMeals.remove(meal);
-        _showInfoMessage('Meal is no longer a favorite.');
-      });
-    } else {
-      setState(() {
-        _favoriteMeals.add(meal);
-        _showInfoMessage('Meal is a favorite!');
-      });
-    }
   }
 
   void _setScreen(String identifier) async {
@@ -99,17 +72,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     ).toList();
 
     Widget activePage = CategoriesScreen(
-      onFavoriteMeal: _toggleFavoritesButton,
-      isFavorite: isFavorite,
       availableMeals: availableMeals,
     );
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
+      final favoriteMeals = ref.watch(favoritesProvider);
+
       activePage = MealsScreen(
-        meals: _favoriteMeals,
-        onFavoriteMeal: _toggleFavoritesButton,
-        isFavorite: isFavorite,
+        meals: favoriteMeals,
       );
       activePageTitle = 'Your Favorites';
     }
