@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/Providers/favorites_provider.dart';
+import 'package:meals_app/Providers/filters_provider.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
@@ -13,6 +14,9 @@ class MealDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoritesProvider);
+    final isFavorite = favoriteMeals.contains(meal);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -33,7 +37,7 @@ class MealDetailsScreen extends ConsumerWidget {
         },
         shape: CircleBorder(side: BorderSide(width: 2)),
         child: Icon(
-          Icons.star,
+          isFavorite ? Icons.star : Icons.star_border,
           size: 32,
         ),
       ),
