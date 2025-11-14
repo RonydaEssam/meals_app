@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/Providers/favorites_provider.dart';
-import 'package:meals_app/Providers/filters_provider.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
@@ -206,60 +205,74 @@ class MealDetailsScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      Text(
-                        'Ingredients : ',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 6),
-                      for (final ingredient in meal.ingredients)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2,
-                            horizontal: 12,
-                          ),
-                          child: Text(
-                            '- $ingredient',
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                  fontSize: 16,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ingredients : ',
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 6),
+                            for (final ingredient in meal.ingredients)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 2,
+                                  horizontal: 12,
                                 ),
-                          ),
-                        ),
-                      const SizedBox(height: 18),
-                      Text(
-                        'Steps : ',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
+                                child: Text(
+                                  '- $ingredient',
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
+                                        fontSize: 16,
+                                      ),
+                                ),
+                              ),
+                            const SizedBox(height: 18),
+                            Text(
+                              'Steps : ',
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(height: 2),
+                            for (int i = 0; i < meal.steps.length; i++)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 12,
+                                ),
+                                child: Text(
+                                  '${i + 1}. ${meal.steps[i]}',
+                                  textAlign: TextAlign.left,
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
+                                        fontSize: 16,
+                                      ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 2),
-                      for (int i = 0; i < meal.steps.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 12,
-                          ),
-                          child: Text(
-                            '${i + 1}. ${meal.steps[i]}',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                  fontSize: 16,
-                                ),
-                          ),
-                        ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 60),
                     ],
                   ),
                 ),
